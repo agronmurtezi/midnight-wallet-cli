@@ -1,0 +1,54 @@
+{
+  "name": "@midnight-ntwrk/wallet-cli",
+  "description": "Interactive CLI for Midnight wallet",
+  "version": "0.0.1-beta.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": "./dist/index.js",
+  "author": "Agron Murtezi",
+  "license": "Apache-2.0",
+  "private": true,
+  "files": [
+    "dist/"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "yarn@4.10.3",
+  "dependencies": {
+    "@midnight-ntwrk/wallet-sdk-facade": "1.0.0",
+    "@scure/bip39": "^2.0.1",
+    "ink": "^5.1.0",
+    "ink-select-input": "^6.0.0",
+    "ink-text-input": "^6.0.0",
+    "react": "^18.3.1",
+    "rxjs": "^7.5"
+  },
+  "scripts": {
+    "start": "tsx src/index.tsx",
+    "build": "tsc",
+    "dist": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --max-warnings 0",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,yaml,yml,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,yaml,yml,md}\"",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@tsconfig/node20": "^20.1.5",
+    "@types/node": "^22.14.0",
+    "@types/react": "^18.3.18",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.4.0",
+    "prettier": "^3.7.0",
+    "rimraf": "^6.0.1",
+    "tslib": "^2.8.1",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.33.0"
+  }
+}
