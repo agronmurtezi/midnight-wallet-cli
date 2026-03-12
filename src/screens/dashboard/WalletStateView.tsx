@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import type { FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
-import { ShieldedAddress, UnshieldedAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
+import { DustAddress, ShieldedAddress, UnshieldedAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
 import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 import { formatBalance } from '../../utils/balance.js';
 import { formatTimeRemaining } from '../../utils/display.js';
@@ -14,6 +14,7 @@ interface Props {
 export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
   const shieldedAddressStr = ShieldedAddress.codec.encode(networkId, state.shielded.address).asString();
   const unshieldedAddressStr = UnshieldedAddress.codec.encode(networkId, state.unshielded.address).asString();
+  const dustAddressStr = DustAddress.codec.encode(networkId, state.dust.address).asString();
 
   const shieldedBalances = Object.entries(state.shielded.balances);
   const unshieldedBalances = Object.entries(state.unshielded.balances);
@@ -171,12 +172,12 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
         <Box marginLeft={2} flexDirection="column" marginTop={1}>
           <Box>
             <Text dimColor>Address </Text>
-            <Text>{state.dust.dustAddress}</Text>
+            <Text>{dustAddressStr}</Text>
           </Box>
 
           <Box marginTop={1}>
             <Text dimColor>Balance (DUST): </Text>
-            <Text bold>{formatBalance(state.dust.walletBalance(new Date()))}</Text>
+            <Text bold>{formatBalance(state.dust.balance(new Date()))}</Text>
           </Box>
 
           <Box marginTop={1}>
@@ -198,8 +199,8 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                   <Box key={idx} marginLeft={2} flexDirection="column">
                     <Text>
                       <Text dimColor>· Coin {idx + 1}: </Text>
-                      <Text bold>{formatBalance(coinInfo.generatedNow)}</Text>
-                      <Text dimColor> / {formatBalance(coinInfo.maxCap)} max</Text>
+                      <Text bold>{coinInfo.generatedNow.toString()}</Text>
+                      <Text dimColor> / {coinInfo.maxCap.toString()} max</Text>
                       {!coinInfo.dtime && <Text color={isComplete ? 'green' : 'cyan'}> ({timeRemaining})</Text>}
                     </Text>
                     {coinInfo.dtime && (

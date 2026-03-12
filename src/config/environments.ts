@@ -47,9 +47,9 @@ export const ENVIRONMENTS: Record<Environment, EnvironmentConfig> = {
   },
   qanet: {
     networkId: NetworkId.NetworkId.QaNet,
-    indexerHttpUrl: 'https://indexer.qanet.dev.midnight.network/api/v3/graphql',
-    indexerWsUrl: 'wss://indexer.qanet.dev.midnight.network/api/v3/graphql/ws',
-    nodeWsUrl: 'wss://rpc.qanet.dev.midnight.network',
+    indexerHttpUrl: 'https://indexer.qanet.midnight.network/api/v3/graphql',
+    indexerWsUrl: 'wss://indexer.qanet.midnight.network/api/v3/graphql/ws',
+    nodeWsUrl: 'wss://rpc.qanet.midnight.network',
     provingServerUrl: PROVING_SERVER_URL,
   },
   dev: {

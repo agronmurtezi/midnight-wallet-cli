@@ -1,9 +1,9 @@
 import type { WalletFacade, UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
 import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
-
+import type { DustAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
 export interface DustRegistrationParams {
   nightUtxos: UtxoWithMeta[];
-  dustReceiverAddress?: string | undefined;
+  dustReceiverAddress?: DustAddress | undefined;
 }
 
 export type DustRegistrationResult = { success: true; txId: string } | { success: false; error: string };

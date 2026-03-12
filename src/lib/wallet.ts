@@ -9,6 +9,7 @@ import {
   PublicKey,
   UnshieldedWallet,
 } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import { makeWasmProvingService } from '@midnight-ntwrk/wallet-sdk-capabilities';
 import type { EnvironmentConfig } from '../types.js';
 import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 
@@ -70,21 +71,22 @@ export async function initializeWallet(seed: Uint8Array, envConfig: EnvironmentC
       additionalFeeOverhead: 300_000_000_000_000_000n,
       feeBlocksMargin: 5,
     },
+    txHistoryStorage: new InMemoryTransactionHistoryStorage(),
   };
 
-  // Step 5: Initialize each wallet
-  const shieldedWallet = ShieldedWallet(config).startWithSecretKeys(shieldedSecretKeys);
-  const dustWallet = DustWallet(config).startWithSecretKey(
-    dustSecretKey,
-    ledger.LedgerParameters.initialParameters().dust,
-  );
-  const unshieldedWallet = UnshieldedWallet({
-    ...config,
-    txHistoryStorage: new InMemoryTransactionHistoryStorage(),
-  }).startWithPublicKey(PublicKey.fromKeyStore(unshieldedKeystore));
-
   // Step 6: Create and start the wallet facade
-  const facade = new WalletFacade(shieldedWallet, unshieldedWallet, dustWallet);
+  const facade = await WalletFacade.init({
+    configuration: config,
+    shielded: (config) => ShieldedWallet(config).startWithSeed(derivationResult.keys[Roles.Zswap]),
+    unshielded: (config) => UnshieldedWallet(config).startWithPublicKey(PublicKey.fromKeyStore(unshieldedKeystore)),
+    dust: (config) =>
+      DustWallet(config).startWithSeed(
+        derivationResult.keys[Roles.Dust],
+        ledger.LedgerParameters.initialParameters().dust,
+      ),
+    provingService: () => makeWasmProvingService(),
+  });
+
   await facade.start(shieldedSecretKeys, dustSecretKey);
 
   return {

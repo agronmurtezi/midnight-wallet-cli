@@ -3,6 +3,7 @@ import { Box, Text, useInput } from 'ink';
 import type { FacadeState, WalletFacade, UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
 import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import { DustAddress, MidnightBech32m } from '@midnight-ntwrk/wallet-sdk-address-format';
 import { executeDustRegistration } from '../../lib/dustRegistration.js';
 import { BackHint } from '../../components/BackHint.js';
 import { UtxoSelect } from '../../components/UtxoSelect.js';
@@ -14,7 +15,8 @@ type DustRegistrationStep = 'selectUtxos' | 'enterAddress' | 'confirm' | 'proces
 
 interface DustRegistrationData {
   selectedUtxos: UtxoWithMeta[];
-  dustReceiverAddress: string;
+  dustReceiverAddress: DustAddress;
+  dustReceiverAddressStr: string;
   estimatedFee: bigint | null;
 }
 
@@ -30,11 +32,17 @@ export const DustRegistrationView: React.FC<Props> = ({ state, networkId, facade
   const [step, setStep] = useState<DustRegistrationStep>('selectUtxos');
   const [data, setData] = useState<DustRegistrationData>({
     selectedUtxos: [],
-    dustReceiverAddress: state.dust.dustAddress,
+    dustReceiverAddress: state.dust.address,
+    dustReceiverAddressStr: DustAddress.codec.encode(networkId, state.dust.address).asString(),
     estimatedFee: null,
   });
   const [processingStage, setProcessingStage] = useState('');
   const [result, setResult] = useState<TransactionResult>(null);
+
+  const defaultDustAddressStr = useMemo(
+    () => DustAddress.codec.encode(networkId, state.dust.address).asString(),
+    [networkId, state.dust.address],
+  );
 
   // Get available NIGHT UTXOs that are not already registered
   const availableUtxos = useMemo(() => {
@@ -80,7 +88,9 @@ export const DustRegistrationView: React.FC<Props> = ({ state, networkId, facade
 
   const handleAddressSubmit = useCallback(
     async (address: string) => {
-      setData((d) => ({ ...d, dustReceiverAddress: address }));
+      const parsed = MidnightBech32m.parse(address);
+      const decoded = DustAddress.codec.decode(networkId, parsed);
+      setData((d) => ({ ...d, dustReceiverAddress: decoded, dustReceiverAddressStr: address }));
 
       // Estimate fee
       try {
@@ -93,7 +103,7 @@ export const DustRegistrationView: React.FC<Props> = ({ state, networkId, facade
 
       setStep('confirm');
     },
-    [facade, data.selectedUtxos],
+    [facade, data.selectedUtxos, networkId],
   );
 
   const handleExecuteRegistration = useCallback(async () => {
@@ -108,14 +118,15 @@ export const DustRegistrationView: React.FC<Props> = ({ state, networkId, facade
       facade,
       {
         nightUtxos: data.selectedUtxos,
-        dustReceiverAddress: data.dustReceiverAddress !== state.dust.dustAddress ? data.dustReceiverAddress : undefined, // Use undefined to let facade use default
+        dustReceiverAddress:
+          data.dustReceiverAddressStr !== defaultDustAddressStr ? data.dustReceiverAddress : undefined, // Use undefined to let facade use default
       },
       unshieldedKeystore,
     );
 
     setResult(registrationResult);
     setStep('result');
-  }, [data, facade, unshieldedKeystore, state.dust.dustAddress]);
+  }, [data, facade, unshieldedKeystore, defaultDustAddressStr]);
 
   const renderStep = () => {
     switch (step) {
@@ -135,7 +146,7 @@ export const DustRegistrationView: React.FC<Props> = ({ state, networkId, facade
       case 'enterAddress':
         return (
           <DustAddressInput
-            defaultAddress={state.dust.dustAddress}
+            defaultAddress={data.dustReceiverAddressStr}
             networkId={networkId}
             onSubmit={(addr) => void handleAddressSubmit(addr)}
           />
@@ -145,7 +156,7 @@ export const DustRegistrationView: React.FC<Props> = ({ state, networkId, facade
         return (
           <RegistrationConfirm
             selectedUtxos={data.selectedUtxos}
-            dustReceiverAddress={data.dustReceiverAddress}
+            dustReceiverAddress={data.dustReceiverAddressStr}
             estimatedFee={data.estimatedFee}
           />
         );
