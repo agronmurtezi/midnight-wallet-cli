@@ -16,7 +16,6 @@ An interactive terminal interface for managing Midnight wallets. Built with [Ink
 ## Prerequisites
 
 - Node.js 20+
-- Proving server running at `http://localhost:6300`
 - Valid wallet seed (24-word mnemonic or 64-char hex)
 
 ## Quick Start
@@ -92,7 +91,6 @@ yarn clean        # Clean build artifacts
 
 ### "Failed to initialize wallets"
 
-- Verify proving server is running at `http://localhost:6300`
 - Check network connectivity to the selected environment
 
 ### "Invalid seed format"
