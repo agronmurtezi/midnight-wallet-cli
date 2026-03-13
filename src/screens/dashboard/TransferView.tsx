@@ -124,12 +124,13 @@ export const TransferView: React.FC<Props> = ({ state, networkId, facade, secret
         receiverAddress: data.receiverAddress,
       },
       secretKeys,
+      networkId,
       unshieldedKeystore,
     );
 
     setResult(transferResult);
     setStep('result');
-  }, [data, facade, secretKeys, unshieldedKeystore]);
+  }, [data, facade, secretKeys, networkId, unshieldedKeystore]);
 
   const getBalances = (): Record<string, bigint> => {
     if (data.tokenType === 'shielded') {
