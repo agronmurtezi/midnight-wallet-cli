@@ -7,7 +7,7 @@ export function calculateSyncPercentage(state: FacadeState): number {
   // Shielded wallet percentage
   const shieldedProgress = state.shielded.progress;
   const shieldedApplied = Number(shieldedProgress.appliedIndex ?? 0);
-  const shieldedTotal = Number(shieldedProgress.highestRelevantIndex ?? 0);
+  const shieldedTotal = Number(shieldedProgress.highestRelevantWalletIndex ?? 0);
   const shieldedPercent = shieldedTotal === 0 ? 100 : (shieldedApplied / shieldedTotal) * 100;
 
   // Unshielded wallet percentage
@@ -19,7 +19,7 @@ export function calculateSyncPercentage(state: FacadeState): number {
   // Dust wallet percentage
   const dustProgress = state.dust.progress;
   const dustApplied = Number(dustProgress.appliedIndex ?? 0);
-  const dustTotal = Number(dustProgress.highestRelevantIndex ?? 0);
+  const dustTotal = Number(dustProgress.highestRelevantWalletIndex ?? 0);
   const dustPercent = dustTotal === 0 ? 100 : (dustApplied / dustTotal) * 100;
 
   // Average of all three

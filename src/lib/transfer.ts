@@ -1,6 +1,8 @@
-import type { WalletFacade, BalancingRecipe } from '@midnight-ntwrk/wallet-sdk-facade';
+import type { WalletFacade, BalancingRecipe, CombinedTokenTransfer } from '@midnight-ntwrk/wallet-sdk-facade';
 import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
 import type * as ledger from '@midnight-ntwrk/ledger-v7';
+import { MidnightBech32m, ShieldedAddress, UnshieldedAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
+import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 
 export interface TransferParams {
   tokenType: 'shielded' | 'unshielded';
@@ -23,28 +25,38 @@ export async function executeTransfer(
   facade: WalletFacade,
   params: TransferParams,
   secretKeys: TransferSecretKeys,
+  networkId: NetworkId.NetworkId,
   unshieldedKeystore?: UnshieldedKeystore,
 ): Promise<TransferResult> {
   try {
     const ttl = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
 
     // Step 1: Create transfer transaction
-    const recipe = await facade.transferTransaction(
-      [
-        {
-          type: params.tokenType,
-          outputs: [
-            {
-              type: params.tokenId,
-              receiverAddress: params.receiverAddress,
-              amount: params.amount,
-            },
-          ],
-        },
-      ],
-      secretKeys,
-      { ttl },
-    );
+    const parsedAddress = MidnightBech32m.parse(params.receiverAddress);
+    const transfer: CombinedTokenTransfer =
+      params.tokenType === 'shielded'
+        ? {
+            type: 'shielded',
+            outputs: [
+              {
+                type: params.tokenId,
+                receiverAddress: ShieldedAddress.codec.decode(networkId, parsedAddress),
+                amount: params.amount,
+              },
+            ],
+          }
+        : {
+            type: 'unshielded',
+            outputs: [
+              {
+                type: params.tokenId,
+                receiverAddress: UnshieldedAddress.codec.decode(networkId, parsedAddress),
+                amount: params.amount,
+              },
+            ],
+          };
+
+    const recipe = await facade.transferTransaction([transfer], secretKeys, { ttl });
 
     // Step 2: Sign if unshielded (requires signature)
     let signedRecipe: BalancingRecipe = recipe;

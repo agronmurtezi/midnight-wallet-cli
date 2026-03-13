@@ -39,7 +39,9 @@ export const SyncProgressView: React.FC<Props> = ({ state }) => {
         </Box>
         <Box marginLeft={2} marginTop={1}>
           <Text dimColor>Progress </Text>
-          <Text>{formatProgress(shieldedProgress.appliedIndex ?? 0, shieldedProgress.highestRelevantIndex ?? 0)}</Text>
+          <Text>
+            {formatProgress(shieldedProgress.appliedIndex ?? 0, shieldedProgress.highestRelevantWalletIndex ?? 0)}
+          </Text>
         </Box>
       </Box>
 
@@ -67,7 +69,7 @@ export const SyncProgressView: React.FC<Props> = ({ state }) => {
         </Box>
         <Box marginLeft={2} marginTop={1}>
           <Text dimColor>Progress </Text>
-          <Text>{formatProgress(dustProgress.appliedIndex ?? 0, dustProgress.highestRelevantIndex ?? 0)}</Text>
+          <Text>{formatProgress(dustProgress.appliedIndex ?? 0, dustProgress.highestRelevantWalletIndex ?? 0)}</Text>
         </Box>
       </Box>
     </Box>
