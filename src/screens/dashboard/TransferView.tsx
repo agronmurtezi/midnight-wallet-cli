@@ -158,7 +158,12 @@ export const TransferView: React.FC<Props> = ({ state, networkId, facade, secret
 
       case 'enterAmount':
         return (
-          <AmountInput tokenId={data.tokenId!} availableBalance={getAvailableBalance()} onSubmit={handleAmountSubmit} />
+          <AmountInput
+            tokenType={data.tokenType!}
+            tokenId={data.tokenId!}
+            availableBalance={getAvailableBalance()}
+            onSubmit={handleAmountSubmit}
+          />
         );
 
       case 'enterAddress':

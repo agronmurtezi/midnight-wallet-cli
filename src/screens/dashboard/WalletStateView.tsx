@@ -3,7 +3,8 @@ import { Box, Text } from 'ink';
 import type { FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
 import { DustAddress, ShieldedAddress, UnshieldedAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
 import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
-import { formatBalance, formatDustBalance } from '../../utils/balance.js';
+import { NIGHT_TOKEN_ID } from '../../constants.js';
+import { formatBalanceForToken, formatDustBalance } from '../../utils/balance.js';
 import { formatTimeRemaining } from '../../utils/display.js';
 
 interface Props {
@@ -47,7 +48,7 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                   <Text>
                     <Text dimColor>· </Text>
                     <Text>{token}: </Text>
-                    <Text bold>{formatBalance(balance)}</Text>
+                    <Text bold>{formatBalanceForToken(balance, token, 'shielded')}</Text>
                   </Text>
                 </Box>
               ))}
@@ -78,7 +79,7 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                 <Box key={idx} marginLeft={2}>
                   <Text>
                     <Text dimColor>· Coin {idx + 1}: </Text>
-                    <Text bold>{formatBalance(coin.coin.value)}</Text>
+                    <Text bold>{formatBalanceForToken(coin.coin.value, coin.coin.type, 'shielded')}</Text>
                     <Text dimColor> ({coin.coin.type})</Text>
                   </Text>
                 </Box>
@@ -110,9 +111,9 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                   <Text>
                     <Text dimColor>· </Text>
                     <Text>
-                      {token === '0000000000000000000000000000000000000000000000000000000000000000' ? 'NIGHT: ' : token}
+                      {(token === NIGHT_TOKEN_ID ? 'NIGHT' : token)}:{' '}
                     </Text>
-                    <Text bold>{formatBalance(balance)}</Text>
+                    <Text bold>{formatBalanceForToken(balance, token, 'unshielded')}</Text>
                   </Text>
                 </Box>
               ))}
@@ -143,13 +144,11 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                 <Box key={idx} marginLeft={2} flexDirection="column">
                   <Text>
                     <Text dimColor>· Coin {idx + 1}: </Text>
-                    <Text bold>{formatBalance(coin.utxo.value)}</Text>
+                    <Text bold>{formatBalanceForToken(coin.utxo.value, coin.utxo.type, 'unshielded')}</Text>
                     <Text dimColor>
                       {' '}
                       (
-                      {coin.utxo.type === '0000000000000000000000000000000000000000000000000000000000000000'
-                        ? 'NIGHT'
-                        : coin.utxo.type}
+                      {coin.utxo.type === NIGHT_TOKEN_ID ? 'NIGHT' : coin.utxo.type}
                       )
                     </Text>
                     {coin.meta.registeredForDustGeneration && <Text color="yellow"> [Registered for Dust]</Text>}

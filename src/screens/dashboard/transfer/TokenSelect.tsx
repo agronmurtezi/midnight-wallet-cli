@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import SelectInput from 'ink-select-input';
-import { formatBalance } from '../../../utils/balance.js';
+import { formatBalanceForToken } from '../../../utils/balance.js';
 import { getTokenDisplayName } from '../../../utils/display.js';
 
 interface Props {
@@ -27,7 +27,7 @@ export const TokenSelect: React.FC<Props> = ({ tokenType, balances, onSelect }) 
   }
 
   const items: Item[] = entries.map(([tokenId, balance]) => ({
-    label: `${getTokenDisplayName(tokenId)}: ${formatBalance(balance)}`,
+    label: `${getTokenDisplayName(tokenId, tokenType)}: ${formatBalanceForToken(balance, tokenId, tokenType)}`,
     value: tokenId,
   }));
 

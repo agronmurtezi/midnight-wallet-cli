@@ -1,12 +1,31 @@
+import { NIGHT_TOKEN_ID } from '../constants.js';
+
 /** SPECK per DUST: 1 DUST = 10^15 SPECK (Midnight glossary) */
 export const DUST_DENOMINATION = BigInt(10 ** 15);
 
 /** STAR per NIGHT: 1 NIGHT = 10^6 STAR (Midnight glossary) */
-const NIGHT_DENOMINATION = BigInt(10 ** 6);
+export const NIGHT_DENOMINATION = BigInt(10 ** 6);
+
+/**
+ * Format a balance for display by token type and context.
+ * NIGHT is only the native unshielded token. A shielded token with all-zeros ID is
+ * not NIGHT and has no known unit.
+ * NIGHT (unshielded) uses STAR denomination (10^6). All other tokens display raw value.
+ */
+export function formatBalanceForToken(
+  balance: bigint,
+  tokenId: string,
+  tokenType: 'shielded' | 'unshielded',
+): string {
+  const isNight = tokenType === 'unshielded' && tokenId === NIGHT_TOKEN_ID;
+  const denomination = isNight ? NIGHT_DENOMINATION : 1n;
+  return formatBalance(balance, denomination);
+}
 
 /**
  * Format a balance for display. Uses NIGHT/STAR denomination (10^6) by default.
  * For DUST (SPECK values), use formatDustBalance instead.
+ * For token-aware formatting (NIGHT vs custom), use formatBalanceForToken.
  */
 export function formatBalance(balance: bigint, denomination: bigint = NIGHT_DENOMINATION): string {
   const value = balance / denomination;

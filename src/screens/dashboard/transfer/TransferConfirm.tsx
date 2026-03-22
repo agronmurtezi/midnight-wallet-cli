@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'ink';
-import { formatBalance } from '../../../utils/balance.js';
+import { formatBalanceForToken } from '../../../utils/balance.js';
 import { getTokenDisplayName, truncateAddress } from '../../../utils/display.js';
 
 interface Props {
@@ -24,11 +24,11 @@ export const TransferConfirm: React.FC<Props> = ({ tokenType, tokenId, amount, r
         </Box>
         <Box>
           <Text dimColor>Token: </Text>
-          <Text>{getTokenDisplayName(tokenId)}</Text>
+          <Text>{getTokenDisplayName(tokenId, tokenType)}</Text>
         </Box>
         <Box>
           <Text dimColor>Amount: </Text>
-          <Text bold>{formatBalance(amount)}</Text>
+          <Text bold>{formatBalanceForToken(amount, tokenId, tokenType)}</Text>
         </Box>
         <Box>
           <Text dimColor>To: </Text>

@@ -3,9 +3,8 @@ import { Box, Text } from 'ink';
 import TextInput from 'ink-text-input';
 import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 import { validateAddress } from '../../../utils/addressValidation.js';
-import { formatBalance } from '../../../utils/balance.js';
-
-const NIGHT_TOKEN_ID = '0000000000000000000000000000000000000000000000000000000000000000';
+import { formatBalanceForToken } from '../../../utils/balance.js';
+import { getTokenDisplayName } from '../../../utils/display.js';
 
 interface Props {
   tokenType: 'shielded' | 'unshielded';
@@ -14,13 +13,6 @@ interface Props {
   networkId: NetworkId.NetworkId;
   onSubmit: (address: string) => void;
   error?: string;
-}
-
-function getTokenDisplayName(tokenId: string): string {
-  if (tokenId === NIGHT_TOKEN_ID) {
-    return 'NIGHT';
-  }
-  return tokenId.substring(0, 8) + '...';
 }
 
 export const AddressInput: React.FC<Props> = ({ tokenType, tokenId, amount, networkId, onSubmit, error }) => {
@@ -52,7 +44,8 @@ export const AddressInput: React.FC<Props> = ({ tokenType, tokenId, amount, netw
     <Box flexDirection="column">
       <Box marginBottom={1}>
         <Text dimColor>
-          Amount: <Text bold>{formatBalance(amount)}</Text> {getTokenDisplayName(tokenId)}
+          Amount: <Text bold>{formatBalanceForToken(amount, tokenId, tokenType)}</Text>{' '}
+          {getTokenDisplayName(tokenId, tokenType)}
         </Text>
       </Box>
       <Box marginBottom={1}>
