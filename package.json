@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "tsx src/index.tsx",
+    "start-cli": "tsx src/index_cli.tsx",
     "build": "tsc",
     "dist": "tsc",
     "typecheck": "tsc --noEmit",
