@@ -34,9 +34,9 @@ export function deriveIndexerWsUrl(httpUrl: string): string {
 export const ENVIRONMENTS: Record<Environment, EnvironmentConfig> = {
   mainnet: {
     networkId: NetworkId.NetworkId.MainNet,
-    indexerHttpUrl: 'TODO_ADD_URL',
-    indexerWsUrl: 'TODO_ADD_URL',
-    nodeWsUrl: 'TODO_ADD_URL',
+    indexerHttpUrl: 'https://indexer.mainnet.midnight.network/api/v4/graphql',
+    indexerWsUrl: 'wss://indexer.mainnet.midnight.network/api/v4/graphql/ws',
+    nodeWsUrl: 'wss://rpc.mainnet.midnight.network',
     provingServerUrl: PROVING_SERVER_URL,
   },
   preprod: {
