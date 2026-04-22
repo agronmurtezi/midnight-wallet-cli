@@ -1,8 +1,14 @@
-import type { WalletFacade, BalancingRecipe, CombinedTokenTransfer } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import {
+  WalletFacade,
+  BalancingRecipe,
+  CombinedTokenTransfer,
+  UnshieldedKeystore,
+  MidnightBech32m,
+  ShieldedAddress,
+  UnshieldedAddress,
+  type NetworkId,
+} from '@midnight-ntwrk/wallet-sdk';
 import type * as ledger from '@midnight-ntwrk/ledger-v8';
-import { MidnightBech32m, ShieldedAddress, UnshieldedAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 
 export interface TransferParams {
   tokenType: 'shielded' | 'unshielded';

@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Box, Text, useInput } from 'ink';
-import type { FacadeState, WalletFacade } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+import type { FacadeState, WalletFacade, NetworkId, UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk';
 import type { WalletSecretKeys } from '../../lib/wallet.js';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
 import { executeTransfer } from '../../lib/transfer.js';
 import { BackHint } from '../../components/BackHint.js';
 import { TransactionProcessing, TransactionSuccess, TransactionError } from '../../components/TransactionResult.js';

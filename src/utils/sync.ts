@@ -1,4 +1,4 @@
-import type { FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
+import type { FacadeState } from '@midnight-ntwrk/wallet-sdk';
 
 /**
  * Calculate the overall sync percentage from all three wallets

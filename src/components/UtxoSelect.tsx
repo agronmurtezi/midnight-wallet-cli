@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Text, useInput } from 'ink';
-import type { UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
+import type { UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk';
 import { formatBalance } from '../utils/balance.js';
 
 interface EmptyStateMessages {

@@ -5,10 +5,7 @@ import { NIGHT_TOKEN_ID } from '../constants.js';
  * NIGHT is only the native unshielded token. A shielded token with all-zeros ID is
  * not NIGHT. Returns 'NIGHT' only for unshielded native token, otherwise truncated ID.
  */
-export function getTokenDisplayName(
-  tokenId: string,
-  tokenType: 'shielded' | 'unshielded',
-): string {
+export function getTokenDisplayName(tokenId: string, tokenType: 'shielded' | 'unshielded'): string {
   if (tokenType === 'unshielded' && tokenId === NIGHT_TOKEN_ID) {
     return 'NIGHT';
   }

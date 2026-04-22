@@ -1,8 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'ink';
-import type { FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
-import { DustAddress, ShieldedAddress, UnshieldedAddress } from '@midnight-ntwrk/wallet-sdk-address-format';
-import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+import { FacadeState, DustAddress, ShieldedAddress, UnshieldedAddress, NetworkId } from '@midnight-ntwrk/wallet-sdk';
 import { NIGHT_TOKEN_ID } from '../../constants.js';
 import { formatBalanceForToken, formatDustBalance } from '../../utils/balance.js';
 import { formatTimeRemaining } from '../../utils/display.js';
@@ -110,9 +108,7 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                 <Box key={token} marginLeft={2}>
                   <Text>
                     <Text dimColor>· </Text>
-                    <Text>
-                      {(token === NIGHT_TOKEN_ID ? 'NIGHT' : token)}:{' '}
-                    </Text>
+                    <Text>{token === NIGHT_TOKEN_ID ? 'NIGHT' : token}: </Text>
                     <Text bold>{formatBalanceForToken(balance, token, 'unshielded')}</Text>
                   </Text>
                 </Box>
@@ -145,12 +141,7 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
                   <Text>
                     <Text dimColor>· Coin {idx + 1}: </Text>
                     <Text bold>{formatBalanceForToken(coin.utxo.value, coin.utxo.type, 'unshielded')}</Text>
-                    <Text dimColor>
-                      {' '}
-                      (
-                      {coin.utxo.type === NIGHT_TOKEN_ID ? 'NIGHT' : coin.utxo.type}
-                      )
-                    </Text>
+                    <Text dimColor> ({coin.utxo.type === NIGHT_TOKEN_ID ? 'NIGHT' : coin.utxo.type})</Text>
                     {coin.meta.registeredForDustGeneration && <Text color="yellow"> [Registered for Dust]</Text>}
                   </Text>
                 </Box>
@@ -190,7 +181,7 @@ export const WalletStateView: React.FC<Props> = ({ state, networkId }) => {
           {state.dust.availableCoins.length > 0 && (
             <Box flexDirection="column" marginTop={1}>
               <Text dimColor>Coin Details</Text>
-              {state.dust.availableCoinsWithFullInfo(new Date()).map((coinInfo, idx) => {
+              {state.dust.availableCoins.map((coinInfo, idx) => {
                 const now = new Date();
                 const timeRemaining = formatTimeRemaining(coinInfo.maxCapReachedAt, now);
                 const isComplete = coinInfo.generatedNow >= coinInfo.maxCap;

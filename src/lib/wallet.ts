@@ -1,17 +1,20 @@
 import * as ledger from '@midnight-ntwrk/ledger-v8';
-import { DustWallet } from '@midnight-ntwrk/wallet-sdk-dust-wallet';
-import { WalletFacade } from '@midnight-ntwrk/wallet-sdk-facade';
-import { HDWallet, Roles } from '@midnight-ntwrk/wallet-sdk-hd';
-import { ShieldedWallet } from '@midnight-ntwrk/wallet-sdk-shielded';
 import {
+  DustWallet,
+  WalletFacade,
+  HDWallet,
+  Roles,
+  ShieldedWallet,
   createKeystore,
-  InMemoryTransactionHistoryStorage,
   PublicKey,
   UnshieldedWallet,
-} from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
-import { makeWasmProvingService } from '@midnight-ntwrk/wallet-sdk-capabilities';
+  NetworkId,
+  InMemoryTransactionHistoryStorage,
+  mergeWalletEntries,
+  WalletEntrySchema,
+} from '@midnight-ntwrk/wallet-sdk';
+import { makeWasmProvingService } from '@midnight-ntwrk/wallet-sdk/capabilities';
 import type { EnvironmentConfig } from '../types.js';
-import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 
 export interface WalletSecretKeys {
   shieldedSecretKeys: ledger.ZswapSecretKeys;
@@ -70,7 +73,7 @@ export async function initializeWallet(seed: Uint8Array, envConfig: EnvironmentC
     costParameters: {
       feeBlocksMargin: 5,
     },
-    txHistoryStorage: new InMemoryTransactionHistoryStorage(),
+    txHistoryStorage: new InMemoryTransactionHistoryStorage(WalletEntrySchema, mergeWalletEntries),
   };
 
   // Step 6: Create and start the wallet facade

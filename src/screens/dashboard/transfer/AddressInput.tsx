@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Text } from 'ink';
 import TextInput from 'ink-text-input';
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+import type { NetworkId } from '@midnight-ntwrk/wallet-sdk';
 import { validateAddress } from '../../../utils/addressValidation.js';
 import { formatBalanceForToken } from '../../../utils/balance.js';
 import { getTokenDisplayName } from '../../../utils/display.js';

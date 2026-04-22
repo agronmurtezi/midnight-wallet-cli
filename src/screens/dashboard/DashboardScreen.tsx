@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import type { Route, Navigator } from '../../navigation/index.js';
 import { Box, Text, useInput } from 'ink';
-import type { WalletFacade, FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import type { WalletFacade, FacadeState, UnshieldedKeystore, NetworkId } from '@midnight-ntwrk/wallet-sdk';
 import { WalletStateView } from './WalletStateView.js';
 import { SyncProgressView } from './SyncProgressView.js';
 import { TransferView } from './TransferView.js';
 import { DustRegistrationView } from './DustRegistrationView.js';
 import { DustDeregistrationView } from './DustDeregistrationView.js';
 import { SettingsView } from './SettingsView.js';
-import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 import { StatusHeader } from '../../components/StatusHeader.js';
 import type { WalletSecretKeys } from '../../lib/wallet.js';
 import type { Environment, EnvironmentConfig } from '../../types.js';

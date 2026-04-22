@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Box, Text, useInput } from 'ink';
-import type { FacadeState, WalletFacade, UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import type { FacadeState, WalletFacade, UtxoWithMeta, UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk';
 import { executeDustDeregistration } from '../../lib/dustDeregistration.js';
 import { BackHint } from '../../components/BackHint.js';
 import { UtxoSelect } from '../../components/UtxoSelect.js';

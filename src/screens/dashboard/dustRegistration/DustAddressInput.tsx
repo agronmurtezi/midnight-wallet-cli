@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Text, useInput } from 'ink';
 import TextInput from 'ink-text-input';
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+import type { NetworkId } from '@midnight-ntwrk/wallet-sdk';
 import { validateDustAddress } from '../../../utils/addressValidation.js';
 
 interface Props {

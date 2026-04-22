@@ -2,9 +2,7 @@ import React from 'react';
 import { SetupScreen } from './setup/index.js';
 import { DashboardScreen } from './dashboard/index.js';
 import type { Route, Navigator } from '../navigation/index.js';
-import type { WalletFacade, FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
-import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+import type { WalletFacade, FacadeState, UnshieldedKeystore, NetworkId } from '@midnight-ntwrk/wallet-sdk';
 import type { WalletSecretKeys } from '../lib/wallet.js';
 import type { Environment, EnvironmentConfig } from '../types.js';
 

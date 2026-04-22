@@ -1,5 +1,4 @@
-import type { WalletFacade, UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import type { WalletFacade, UtxoWithMeta, UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk';
 
 export interface DustDeregistrationParams {
   nightUtxos: UtxoWithMeta[];

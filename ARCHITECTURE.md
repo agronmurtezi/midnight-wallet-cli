@@ -620,14 +620,14 @@ User Input
 
 ### Runtime Dependencies
 
-| Package                        | Version | Purpose                         |
-| ------------------------------ | ------- | ------------------------------- |
-| `@midnight-ntwrk/wallet-sdk-*` | -       | Midnight wallet SDK packages    |
-| `@scure/bip39`                 | ^1.4.0  | BIP39 mnemonic phrase utilities |
-| `ink`                          | ^5.1.0  | React-based TUI framework       |
-| `ink-select-input`             | ^6.0.0  | Select menu component           |
-| `ink-text-input`               | ^6.0.0  | Text input component            |
-| `react`                        | ^18.3.1 | React library                   |
+| Package                      | Version | Purpose                         |
+| ---------------------------- | ------- | ------------------------------- |
+| `@midnight-ntwrk/wallet-sdk` | -       | Midnight wallet SDK packages    |
+| `@scure/bip39`               | ^1.4.0  | BIP39 mnemonic phrase utilities |
+| `ink`                        | ^5.1.0  | React-based TUI framework       |
+| `ink-select-input`           | ^6.0.0  | Select menu component           |
+| `ink-text-input`             | ^6.0.0  | Text input component            |
+| `react`                      | ^18.3.1 | React library                   |
 
 ### Dev Dependencies
 

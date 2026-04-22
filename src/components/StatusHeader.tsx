@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'ink';
-import type { FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
+import type { FacadeState } from '@midnight-ntwrk/wallet-sdk';
 import type { Environment } from '../types.js';
 import { getSyncStatus } from '../utils/sync.js';
 

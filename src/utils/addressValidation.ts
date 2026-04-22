@@ -3,8 +3,8 @@ import {
   ShieldedAddress,
   UnshieldedAddress,
   DustAddress,
-} from '@midnight-ntwrk/wallet-sdk-address-format';
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+} from '@midnight-ntwrk/wallet-sdk/address-format';
+import type { NetworkId } from '@midnight-ntwrk/wallet-sdk';
 
 export type AddressValidationResult = { valid: true; address: string } | { valid: false; error: string };
 

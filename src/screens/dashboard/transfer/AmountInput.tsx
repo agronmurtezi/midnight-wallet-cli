@@ -80,12 +80,7 @@ export const AmountInput: React.FC<Props> = ({ tokenType, tokenId, availableBala
       </Box>
       <Box>
         <Text dimColor>› </Text>
-        <TextInput
-          value={value}
-          onChange={setValue}
-          onSubmit={handleSubmit}
-          placeholder={isNight ? '0.00' : '0'}
-        />
+        <TextInput value={value} onChange={setValue} onSubmit={handleSubmit} placeholder={isNight ? '0.00' : '0'} />
       </Box>
       {displayError && (
         <Box marginTop={1} paddingLeft={2}>

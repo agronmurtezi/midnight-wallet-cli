@@ -1,4 +1,4 @@
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
+import { NetworkId } from '@midnight-ntwrk/wallet-sdk';
 
 /**
  * Supported environment names for the CLI

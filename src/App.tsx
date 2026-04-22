@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Text, useInput } from 'ink';
 import type { Subscription } from 'rxjs';
-import type { WalletFacade, FacadeState } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
+import type { WalletFacade, FacadeState, UnshieldedKeystore, NetworkId } from '@midnight-ntwrk/wallet-sdk';
+
 import { ScreenHost } from './screens/index.js';
 import { getEnvironmentConfig } from './config/environments.js';
 import { initializeWallet, type WalletSecretKeys } from './lib/wallet.js';
 import { useStackNavigator } from './navigation/index.js';
 import type { Route } from './navigation/index.js';
-import { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
 import type { Environment, EnvironmentConfig } from './types.js';
 
 interface Props {

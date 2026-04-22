@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text } from 'ink';
-import type { UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
+import type { UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk';
 import { formatBalance, formatDustBalance } from '../../../utils/balance.js';
 
 interface Props {

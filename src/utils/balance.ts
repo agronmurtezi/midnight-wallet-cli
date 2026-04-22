@@ -12,11 +12,7 @@ export const NIGHT_DENOMINATION = BigInt(10 ** 6);
  * not NIGHT and has no known unit.
  * NIGHT (unshielded) uses STAR denomination (10^6). All other tokens display raw value.
  */
-export function formatBalanceForToken(
-  balance: bigint,
-  tokenId: string,
-  tokenType: 'shielded' | 'unshielded',
-): string {
+export function formatBalanceForToken(balance: bigint, tokenId: string, tokenType: 'shielded' | 'unshielded'): string {
   const isNight = tokenType === 'unshielded' && tokenId === NIGHT_TOKEN_ID;
   const denomination = isNight ? NIGHT_DENOMINATION : 1n;
   return formatBalance(balance, denomination);

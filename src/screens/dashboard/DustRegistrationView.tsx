@@ -1,9 +1,14 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Box, Text, useInput } from 'ink';
-import type { FacadeState, WalletFacade, UtxoWithMeta } from '@midnight-ntwrk/wallet-sdk-facade';
-import type { NetworkId } from '@midnight-ntwrk/wallet-sdk-abstractions';
-import type { UnshieldedKeystore } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
-import { DustAddress, MidnightBech32m } from '@midnight-ntwrk/wallet-sdk-address-format';
+import {
+  FacadeState,
+  WalletFacade,
+  UtxoWithMeta,
+  NetworkId,
+  UnshieldedKeystore,
+  DustAddress,
+  MidnightBech32m,
+} from '@midnight-ntwrk/wallet-sdk';
 import { executeDustRegistration } from '../../lib/dustRegistration.js';
 import { BackHint } from '../../components/BackHint.js';
 import { UtxoSelect } from '../../components/UtxoSelect.js';
